@@ -16,6 +16,7 @@ color: black
 ## 背景
 
 現在afbのadminシステムのリプレイスを行なっている
+
 - 単純なバージョンアップではなく、保守運用性と品質向上が目的
 - レイヤードアーキテクチャを採用し、堅牢なシステムを目指す
 - レビューの効率化のためアーキテクチャの自動テスト方法を模索
@@ -82,7 +83,9 @@ class UserService
 ## 実際のテストコード例
 
 ### 依存関係テスト
+
 * 依存可能なレイヤーのディレクトリを指定し、そのディレクトリ内でのみ使用されているかを確認
+
 ```php
 arch('Query can be used in App\Http\Controllers or App\Query', function (): void {
     $this->sut->not->toBeUsedIn($this->getUnAccessibleLayerBy(accessibleLayer: [
@@ -98,6 +101,7 @@ arch('Query can be used in App\Http\Controllers or App\Query', function (): void
 ### クラスタイプテスト
 * 指定したディレクトリ配下のクラスがclassであるかを確認
   * `\IRepository`配下はテスト対象外
+
 ```php
 arch('Query must be class', function(): void {
   $this->sut->toBeClasses()
@@ -109,6 +113,7 @@ arch('Query must be class', function(): void {
 ### 命名規則テスト
 * 指定したディレクト値配下のクラスの末尾が`Query`であるかを確認
   * `\IRepository`配下はテスト対象外
+
 ```php
 arch('Suffix must be Query', function(): void {
   $this->sut->toHaveSuffix('Query')
@@ -129,4 +134,4 @@ arch('Suffix must be Query', function(): void {
 
 - [Pest](https://pestphp.com/)
 - [Pestを使ってアーキテクチャテストをやってみる](https://zenn.dev/naopusyu/articles/552173ec11f929)
-- [気づいたら3日前にv3がリリースされてました](https://zenn.dev/casti/articles/2a754ba9b92ef7)
+- [PEST v3の新機能まとめ](https://zenn.dev/casti/articles/2a754ba9b92ef7)
